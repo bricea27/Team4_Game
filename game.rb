@@ -14,21 +14,21 @@ enemy_dead = false
 def pika_attack(enemy_hp)
   #randomization
   random = rand(10) + 1 #includes 10
-  if random == 1 || random == 2
-    puts "Oh no, Pikachu missed!"
-  elsif random == 3 || random == 4 || random == 5
-    puts "Pikachu used Tail Whip."
-    enemy_hp = enemy_hp - 2
-    puts "Enemy's hp is reduced to #{enemy_hp}."
-  elsif random == 6 || random || 7 || random == 8
-    puts "Pikachu used ThunderShock."
-    enemy_hp = enemy_hp - 3
-    puts "Enemy's hp is reduced to #{enemy_hp}."
-  else
-    puts "Pikachu used Slam."
-    enemy_hp = enemy_hp - 4
-    puts "Enemy's hp is reduced to #{enemy_hp}."
-  end
+    if random == 1 || random == 2
+      puts "Oh no, Pikachu missed!"
+    elsif random == 3 || random == 4 || random == 5
+      puts "Pikachu used Tail Whip."
+      enemy_hp = enemy_hp - 2
+      puts "Enemy's hp is reduced to #{enemy_hp}."
+    elsif random == 6 || random || 7 || random == 8
+      puts "Pikachu used ThunderShock."
+      enemy_hp = enemy_hp - 3
+      puts "Enemy's hp is reduced to #{enemy_hp}."
+    else
+      puts "Pikachu used Slam."
+      enemy_hp = enemy_hp - 4
+      puts "Enemy's hp is reduced to #{enemy_hp}."
+    end
   return enemy_hp
 end #end pika_attack
 
@@ -91,7 +91,7 @@ while still_alive == true do
     #sets enemy's health equal to pikachu's attack
     enemy_hp = pika_attack(enemy_hp)
 
-    still_alive, enemy_hp, pika_hp, enemy_dead, bonus_hp` = battle_sequence(enemy_hp, pika_hp, bonus_hp, still_alive)
+    still_alive, enemy_hp, pika_hp, enemy_dead, bonus_hp = battle_sequence(enemy_hp, pika_hp, bonus_hp, still_alive)
 
     if enemy_dead == false
       pika_hp = enemy_attack(pika_hp)
@@ -100,7 +100,12 @@ while still_alive == true do
 
   else
     puts "You lack the heart to be a true Pokemon Master".colorize(:yellow)
-    exit
+    pika_hp = pika_hp - 2
+    puts "Pikachu's hp is now #{pika_hp}."
+    if pika_hp <= 0
+      puts "You Lose"
+      exit
+    end
   end
 
 end #end while still_alive
