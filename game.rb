@@ -42,30 +42,27 @@ def enemy_attack(pika_hp)
     puts "The enemy used Growl. Pikachu's hp is reduced to #{pika_hp}.".colorize(:red)
   elsif random == 7 || random == 8
     pika_hp = pika_hp - 2
-    puts "The enemy used Slam. Pikachu's hp is reduced to #{pika_hp}.".colorize(:red)
+    puts "The enemy used Quick Attack. Pikachu's hp is reduced to #{pika_hp}.".colorize(:red)
   else
     pika_hp = pika_hp - 3
-    puts "The enemy used Punch. Pikachu's hp is reduced to #{pika_hp}.".colorize(:red)
+    puts "The enemy used Scratch. Pikachu's hp is reduced to #{pika_hp}.".colorize(:red)
   end
   return pika_hp
 end #end enemy_attack
 
-def battle_sequence(enemy_hp, pika_hp, bonus_hp, still_alive)
+def battle_sequence(enemy_hp, pika_hp, bonus_hp, still_alive, enemy_dead)
   enemy_dead = false
-  if enemy_hp <= 0
-    puts "You Win!"
-    pika_hp = 10 #reset pika's health
-    bonus_hp = bonus_hp + 1 #increment bonus health
-    pika_hp = pika_hp + bonus_hp #add bonus health
-    enemy_hp = 10 #restore enemy's health
-    puts "Pikachu's hp is now #{pika_hp}!"
-    puts "A new wild Pokemon has appeared! Do you wish to fight? (y/n)"
-    enemy_dead = true
-  end
-  if pika_hp <= 0
-    puts "You Lose!".colorize(:red)
-    still_alive = false
-  end
+    if enemy_hp <= 0
+      puts "You Win!"
+      pika_hp = 10 #restore pika's health
+      enemy_hp = 10 #restore enemy's health
+      puts "Pikachu's hp is now #{pika_hp}!"
+      puts "A new wild Pokemon has appeared! Do you wish to fight? (y/n)"
+      enemy_dead = true
+    elsif pika_hp <= 0
+      puts "You Lose!".colorize(:red)
+      still_alive = false
+    end
   return still_alive, enemy_hp, pika_hp, bonus_hp, enemy_dead
 end #end battle_sequence
 
@@ -91,18 +88,17 @@ while still_alive == true do
     enemy_hp = pika_attack(enemy_hp)
 
     #here we're resetting thise variables equal to the outcome of the battle sequence method
-    still_alive, enemy_hp, pika_hp, enemy_dead, bonus_hp = battle_sequence(enemy_hp, pika_hp, bonus_hp, still_alive)
+    still_alive, enemy_hp, pika_hp, enemy_dead, bonus_hp = battle_sequence(enemy_hp, pika_hp, bonus_hp, still_alive, enemy_dead)
 
     if enemy_dead == false
 
       pika_hp = enemy_attack(pika_hp)
-
-
     end
 
   else
     puts "Pikachu fled the battle!".colorize(:blue)
     pika_hp = pika_hp - 2
+    enemy_hp = 10
     if pika_hp <= 0
       puts "You Lose"
       exit
@@ -110,43 +106,3 @@ while still_alive == true do
   end
 
 end #end while still_alive
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# #restore player health when enemy dies
-# if enemy_health == 0
-#   player_health = 10
-# end
-#
-# #end game when player dies
-# if player_health == 0
-#   is_alive = false
-#   exit
-# end
-
-
-
-# #play game as long as player is alive
-# while still_alive == true
-#   puts "Uh oh, a wild Pokemon has appeared! Do you wish to fight? (y/n)"
-#   answer = gets.chomp.upcase
-#
-#   if answer = "Y"
-#     pika_attack(enemy_hp)
-#   else
-#     pika_hp = pika_hp - 2
-#   end
-#
-#
-# end
